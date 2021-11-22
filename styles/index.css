@@ -361,19 +361,9 @@ body {
   min-height: 100vh;
   max-height: 100vh;
   background: black;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.aspect-ratio {
-  margin: auto;
-  width: 100%;
-  aspect-ratio: 3 / 2;
 }
 
 #plot {
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
 }
 /*# sourceMappingURL=index.css.map */

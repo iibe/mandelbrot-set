@@ -1,4 +1,4 @@
-// NOTE: number of iterations for mandelbrot() fuction
+// NOTE: number of iterations for mandelbrot() function
 const DEPTH = 50;
 
 /**
