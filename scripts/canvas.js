@@ -1,6 +1,6 @@
 import mandelbrot from "./mandelbrot.js";
 
-// NOTE: total number of RGB colors
+// NOTE: total amount of RGB colors
 const RGB = 16777216;
 
 // NOTE: randomly generated colors
@@ -18,11 +18,9 @@ const IM_SET = { start: -1, end: 1 }; // the imaginary part
 const canvas = document.querySelector("#plot");
 const ctx = canvas.getContext("2d");
 
-// NOTE: always keep 3/2 aspect-ratio of container
-let PLOT_W = canvas.clientWidth;
-let PLOT_H = Math.round(canvas.clientWidth * 0.666);
-ctx.canvas.width = PLOT_W;
-ctx.canvas.height = PLOT_H;
+let PLOT_W, PLOT_H;
+
+rerender();
 draw();
 
 export function draw() {
@@ -44,20 +42,25 @@ export function draw() {
   }
 }
 
+function rerender() {
+  // NOTE: always keep 3/2 aspect-ratio of container
+  PLOT_W = canvas.clientWidth * window.devicePixelRatio;
+  PLOT_H = Math.round(PLOT_W * 0.666);
+
+  ctx.canvas.width = PLOT_W;
+  ctx.canvas.height = PLOT_H;
+}
+
 var doit;
 window.addEventListener("resize", () => {
   clearTimeout(doit);
   doit = setTimeout(function () {
     // do not redraw the canvas if we reduce the window
-    if (canvas.clientWidth <= PLOT_W) {
+    if (canvas.clientWidth * window.devicePixelRatio <= PLOT_W) {
       return;
     }
 
-    // set new values and redraw canvas if we increase the window
-    PLOT_W = canvas.clientWidth;
-    PLOT_H = Math.round(canvas.clientWidth * 0.666);
-    ctx.canvas.width = PLOT_W;
-    ctx.canvas.height = PLOT_H;
+    rerender();
     draw();
   }, 100);
 });
